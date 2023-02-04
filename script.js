@@ -77,13 +77,12 @@ const gameBoard = (() => {
       return false;
     }
   };
-  const checkMoveAvailability = () => board.some((pos) => pos == "");
   const display = () => {
     for (let i = 0; i < board.length; i += 1) {
       gridCells[i].textContent = board[i];
     }
   };
-  return { update, checkForWinner, checkMoveAvailability, display };
+  return { update, checkForWinner, display };
 })();
 
 const player = (name, symbol) => {
