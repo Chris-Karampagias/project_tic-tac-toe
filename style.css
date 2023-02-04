@@ -1,0 +1,160 @@
+:root {
+  font-family: "Dancing Script", sans, cursive;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-size: 48px;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  background: linear-gradient(45deg, black, purple, red, pink);
+}
+
+button {
+  outline: none;
+}
+
+.no-pointer-events {
+  pointer-events: none;
+}
+
+.main-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  gap: 2rem;
+  margin: 5rem auto;
+  padding: 1rem 2rem;
+  background-color: rgba(55, 55, 55, 0.413);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  color: white;
+  width: 700px;
+}
+
+.grid-container {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  padding: 1rem 6rem;
+  gap: 3rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 7rem);
+  grid-template-rows: repeat(3, 7rem);
+}
+
+.grid * {
+  display: grid;
+  place-items: center;
+}
+
+.grid-cell:nth-child(3n + 2) {
+  border-right: 4px solid black;
+  border-left: 4px solid black;
+}
+
+.grid-cell:nth-child(3n + 1),
+.grid-cell:nth-child(3n + 2),
+.grid-cell:nth-child(3n + 3) {
+  border-bottom: 4px solid black;
+}
+
+.grid-cell:nth-child(7),
+.grid-cell:nth-child(8),
+.grid-cell:nth-child(9) {
+  border-bottom: none;
+}
+
+.grid-cell {
+  cursor: pointer;
+}
+
+.grid-buttons {
+  display: flex;
+  gap: 3rem;
+}
+
+.restart,
+.start {
+  font-family: inherit;
+  font-size: 2rem;
+  border: none;
+  transition: all 0.15s ease-in;
+  border-radius: 20px;
+  background-color: rgb(126, 99, 99);
+  color: white;
+  padding: 0.5rem;
+  width: fit-content;
+}
+
+.result {
+  align-self: start;
+}
+
+.modal {
+  padding: 2rem;
+  border-radius: 5px;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+form div {
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+form input {
+  font-family: inherit;
+  border: 2px solid black;
+  box-sizing: border-box;
+  transition: all 0.15s ease-in;
+  border-radius: 8px;
+  width: 50%;
+  margin: 0;
+}
+
+form input:focus {
+  box-shadow: 0 0 10px black;
+  outline: none;
+}
+
+form input:hover,
+.modal-buttons button:hover,
+.start:hover,
+.restart:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.modal-buttons button {
+  font-family: inherit;
+  transition: all 0.15s ease-in;
+  font-size: 1rem;
+  border-radius: 8px;
+  padding: 0.5rem;
+  border: 1.5px solid black;
+}
+
+.modal::backdrop {
+  backdrop-filter: blur(3px);
+}
