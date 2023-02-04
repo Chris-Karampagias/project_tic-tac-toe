@@ -9,8 +9,9 @@ const modal = document.querySelector(".modal");
 const submitButton = document.querySelector(".submit-button");
 const closeButton = document.querySelector(".close-modal");
 const start = document.querySelector(".start");
+const restart = document.querySelector(".restart");
+const grid = document.querySelector(".grid");
 const result = document.querySelector(".result"); 
-
 
 start.addEventListener("click", () => {
   modal.showModal();
@@ -20,9 +21,20 @@ closeButton.addEventListener("click", () => {
   modal.close();
 });
 
+function addPointerEvents() {
+  grid.classList.add("no-pointer-events");
+  restart.classList.add("no-pointer-events");
+}
+
+function removePointerEvents() {
+  grid.classList.remove("no-pointer-events");
+  restart.classList.remove("no-pointer-events");
+}
+
 submitButton.addEventListener("click", () => {
   currentPlayers.setPlayer1(player1Modal);
   currentPlayers.setPlayer2(player2Modal);
+  removePointerEvents();
 });
 
 const currentPlayers = (() => {
@@ -91,7 +103,12 @@ const player = (name, symbol) => {
   return { getName, getSymbol };
 };
 
-window.addEventListener("load", gameBoard.display);
+window.addEventListener("load", setInitialState );
+
+function setInitialState(){
+  gameBoard.display();
+  addPointerEvents();
+}
 
 function findWinner () {
   if (!gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getTurns() == 9){
@@ -124,7 +141,6 @@ function markCell (e,symbol,position) {
   }else{
     findCurrentPlayer();
   }
-  
 }
 
 function playRound(e) {
