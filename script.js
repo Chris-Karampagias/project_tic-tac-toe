@@ -93,31 +93,46 @@ const player = (name, symbol) => {
 
 window.addEventListener("load", gameBoard.display);
 
+function findWinner () {
+  if (!gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getTurns() == 9){
+    result.textContent = "It's a tie!";
+  }else if (gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getCurrentPlayer().getSymbol() == "X"){
+    result.textContent ="Result: " + roundDetails.getCurrentPlayer().getName().toUpperCase() + " WINS!";
+  }else if (gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getCurrentPlayer().getSymbol() == "O"){
+    result.textContent ="Result: " + roundDetails.getCurrentPlayer().getName().toUpperCase() + " WINS!";
+  }
+} 
 
-
-function getPosition(e) {
-  return e.target.dataset.pos;
-}
-
-function playRound(e) {
+function findCurrentPlayer () {
   if (roundDetails.getCurrentPlayer() == currentPlayers.getPlayer1()){
     roundDetails.setCurrentPlayer(currentPlayers.getPlayer2())
   }else{
     roundDetails.setCurrentPlayer(currentPlayers.getPlayer1())
   }
+}
+
+function getPosition(e) {
+  return e.target.dataset.pos;
+}
+
+function markCell (e,symbol,position) {
+  if (e.target.textContent == ""){
+    e.target.textContent = symbol;
+    roundDetails.setTurns();
+    gameBoard.update(position, symbol);
+    gameBoard.display();
+  }else{
+    findCurrentPlayer();
+  }
+  
+}
+
+function playRound(e) {
+  findCurrentPlayer();
   const position = getPosition(e);
   const symbol = roundDetails.getCurrentPlayer().getSymbol();
-  e.target.textContent = symbol;
-  gameBoard.update(position, symbol);
-  gameBoard.display();
-  roundDetails.setTurns();
-  if (!gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getTurns() == 9){
-    result.textContent = "It's a tie!";
-  }else if (gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getCurrentPlayer().getSymbol() == "X"){
-    result.textContent = roundDetails.getCurrentPlayer().getName().toUpperCase() + " WINS!";
-  }else if (gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getCurrentPlayer().getSymbol() == "O"){
-    result.textContent = roundDetails.getCurrentPlayer().getName().toUpperCase() + " WINS!";
-  }
+  markCell(e,symbol,position);
+  findWinner();
 }
 
 gridCells.forEach((gridCell) => {
