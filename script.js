@@ -3,12 +3,14 @@
 /* eslint-disable no-else-return */
 /* eslint-disable operator-linebreak */
 const gridCells = Array.from(document.querySelectorAll(".grid-cell"));
-const player1 = document.getElementById("player-1");
-const player2 = document.getElementById("player-2");
+const player1Modal = document.getElementById("player-1");
+const player2Modal = document.getElementById("player-2");
 const modal = document.querySelector(".modal");
 const submitButton = document.querySelector(".submit-button");
 const closeButton = document.querySelector(".close-modal");
 const start = document.querySelector(".start");
+const result = document.querySelector(".result"); 
+
 
 start.addEventListener("click", () => {
   modal.showModal();
@@ -19,29 +21,41 @@ closeButton.addEventListener("click", () => {
 });
 
 submitButton.addEventListener("click", () => {
-  gameDetails.setNames(player1, player2);
+  currentPlayers.setPlayer1(player1Modal);
+  currentPlayers.setPlayer2(player2Modal);
 });
 
-const gameDetails = (() => {
-  let player1Name = "";
-  let player2Name = "";
+const currentPlayers = (() => {
+  let player1;
+  let player2;
+  const setPlayer1 = (name1) => player1 = player(name1.value, "X");
+  const setPlayer2 = (name2) => player2 = player(name2.value, "O");
+  const getPlayer1 = () => player1;
+  const getPlayer2 = () => player2;
+  return {setPlayer1, setPlayer2, getPlayer1, getPlayer2};
+})()
+
+function createPlayers(p1,p2) {
+  player1 = player(p1.value,"X");
+  player2 = player(p2.value,"O");
+}
+
+const roundDetails = (() => {
+  let currentPlayer;
   let turns = 0;
-  const setNames = (player1, player2) => {
-    player1Name = player1.value;
-    player2Name = player2.value;
-  };
+  const setCurrentPlayer = (player) => currentPlayer = player;
+  const getCurrentPlayer = () => currentPlayer; 
   const setTurns = () => {
     turns += 1;
   };
-  const getNames = () => [player1Name, player2Name];
   const getTurns = () => turns;
-  return { setNames, setTurns, getNames, getTurns };
+  return { setTurns, getTurns, setCurrentPlayer, getCurrentPlayer };
 })();
 
 const gameBoard = (() => {
   const board = ["", "", "", "", "", "", "", "", ""];
   const update = (position, symbol) => board.splice(position, 1, symbol);
-  const findWinner = (symbol) => {
+  const checkForWinner = (symbol) => {
     if (
       (board[0] == symbol && board[1] == symbol && board[2] == symbol) ||
       (board[3] == symbol && board[4] == symbol && board[5] == symbol) ||
@@ -69,34 +83,44 @@ const gameBoard = (() => {
       gridCells[i].textContent = board[i];
     }
   };
-  return { update, findWinner, checkMoveAvailability, display };
+  return { update, checkForWinner, checkMoveAvailability, display };
 })();
 
 const player = (name, symbol) => {
-  let mostRecentChoice = "";
   const getName = () => name;
-  const setChoice = (position) => {
-    mostRecentChoice = position;
-  };
-  const getChoice = () => mostRecentChoice;
   const getSymbol = () => symbol;
-  return { getName, getChoice, setChoice, getSymbol };
+  return { getName, getSymbol };
 };
 
 window.addEventListener("load", gameBoard.display);
 
-/* gridCells.forEach((gridCell) => {
-  gridCell.addEventListener("click", getChoice);
-}); */
+
 
 function getPosition(e) {
   return e.target.dataset.pos;
 }
 
 function playRound(e) {
+  if (roundDetails.getCurrentPlayer() == currentPlayers.getPlayer1()){
+    roundDetails.setCurrentPlayer(currentPlayers.getPlayer2())
+  }else{
+    roundDetails.setCurrentPlayer(currentPlayers.getPlayer1())
+  }
   const position = getPosition(e);
-  player.setChoice(position);
-  const symbol = player.getSymbol();
+  const symbol = roundDetails.getCurrentPlayer().getSymbol();
+  e.target.textContent = symbol;
   gameBoard.update(position, symbol);
-  displayBoard();
+  gameBoard.display();
+  roundDetails.setTurns();
+  if (!gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getTurns() == 9){
+    result.textContent = "It's a tie!";
+  }else if (gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getCurrentPlayer().getSymbol() == "X"){
+    result.textContent = roundDetails.getCurrentPlayer().getName().toUpperCase() + " WINS!";
+  }else if (gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getCurrentPlayer().getSymbol() == "O"){
+    result.textContent = roundDetails.getCurrentPlayer().getName().toUpperCase() + " WINS!";
+  }
 }
+
+gridCells.forEach((gridCell) => {
+  gridCell.addEventListener("click", playRound);
+});
