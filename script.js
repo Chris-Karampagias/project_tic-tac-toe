@@ -19,6 +19,8 @@ start.addEventListener("click", () => {
 
 closeButton.addEventListener("click", () => {
   modal.close();
+  player1Modal.value = "";
+  player2Modal.value = "";
 });
 
 function removePointerEvents() {
