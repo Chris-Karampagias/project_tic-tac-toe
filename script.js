@@ -1,7 +1,3 @@
-/* eslint-disable quotes */
-/* eslint-disable eqeqeq */
-/* eslint-disable no-else-return */
-/* eslint-disable operator-linebreak */
 const gridCells = Array.from(document.querySelectorAll(".grid-cell"));
 const player1Modal = document.getElementById("player-1");
 const player2Modal = document.getElementById("player-2");
@@ -37,6 +33,7 @@ submitButton.addEventListener("click", () => {
   currentPlayers.setPlayer1(player1Modal);
   currentPlayers.setPlayer2(player2Modal);
   start.classList.add("no-pointer-events");
+  start.classList.remove("start-after-refresh");
   addPointerEvents();
 });
 
@@ -46,6 +43,7 @@ function restartGame() {
   roundDetails.resetTurns();
   gameBoard.resetBoard();
   gameBoard.display();
+  restart.classList.remove("start-after-refresh");
   grid.classList.remove("no-pointer-events");
   result.textContent = "Result: "
 }
@@ -87,20 +85,17 @@ const gameBoard = (() => {
       (board[3] == symbol && board[4] == symbol && board[5] == symbol) ||
       (board[6] == symbol && board[7] == symbol && board[8] == symbol)
     ) {
-      grid.classList.add("no-pointer-events");
       return true;
     } else if (
       (board[0] == symbol && board[4] == symbol && board[8] == symbol) ||
       (board[2] == symbol && board[4] == symbol && board[6] == symbol)
     ) {
-      grid.classList.add("no-pointer-events");
       return true;
     } else if (
       (board[0] == symbol && board[3] == symbol && board[6] == symbol) ||
       (board[1] == symbol && board[4] == symbol && board[7] == symbol) ||
       (board[2] == symbol && board[5] == symbol && board[8] == symbol)
     ) {
-      grid.classList.add("no-pointer-events");
       return true;
     } else {
       return false;
@@ -126,14 +121,21 @@ window.addEventListener("load", setInitialState);
 function setInitialState(){
   gameBoard.display();
   removePointerEvents();
+  start.classList.add("start-after-refresh");
 }
 
 function findWinner () {
   if (!gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getTurns() == 9){
+    restart.classList.add("start-after-refresh");
+    grid.classList.add("no-pointer-events");
     result.textContent = "Result: It's a tie!";
   }else if (gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getCurrentPlayer().getSymbol() == "X"){
+    restart.classList.add("start-after-refresh");
+    grid.classList.add("no-pointer-events");
     result.textContent ="Result: " + roundDetails.getCurrentPlayer().getName() + " wins!";
   }else if (gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getCurrentPlayer().getSymbol() == "O"){
+    restart.classList.add("start-after-refresh");
+    grid.classList.add("no-pointer-events");
     result.textContent ="Result: " + roundDetails.getCurrentPlayer().getName() + " wins!";
   }
 } 
