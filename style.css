@@ -88,8 +88,8 @@ button {
   border: none;
   transition: all 0.15s ease-in;
   border-radius: 20px;
-  background-color: rgba(89, 89, 89, 0.69);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.69);
+  color: rgb(32, 32, 32);
   padding: 0.5rem;
   width: fit-content;
 }
