@@ -21,12 +21,12 @@ closeButton.addEventListener("click", () => {
   modal.close();
 });
 
-function addPointerEvents() {
+function removePointerEvents() {
   grid.classList.add("no-pointer-events");
   restart.classList.add("no-pointer-events");
 }
 
-function removePointerEvents() {
+function addPointerEvents() {
   grid.classList.remove("no-pointer-events");
   restart.classList.remove("no-pointer-events");
 }
@@ -34,8 +34,19 @@ function removePointerEvents() {
 submitButton.addEventListener("click", () => {
   currentPlayers.setPlayer1(player1Modal);
   currentPlayers.setPlayer2(player2Modal);
-  removePointerEvents();
+  start.classList.add("no-pointer-events");
+  addPointerEvents();
 });
+
+restart.addEventListener("click",restartGame)
+
+function restartGame() {
+  roundDetails.resetTurns();
+  gameBoard.resetBoard();
+  gameBoard.display();
+  grid.classList.remove("no-pointer-events");
+  result.textContent = "Result: "
+}
 
 const currentPlayers = (() => {
   let player1;
@@ -60,12 +71,13 @@ const roundDetails = (() => {
   const setTurns = () => {
     turns += 1;
   };
+  const resetTurns = () => turns = 0;
   const getTurns = () => turns;
-  return { setTurns, getTurns, setCurrentPlayer, getCurrentPlayer };
+  return { setTurns, getTurns, setCurrentPlayer, getCurrentPlayer, resetTurns };
 })();
 
 const gameBoard = (() => {
-  const board = ["", "", "", "", "", "", "", "", ""];
+  let board = ["", "", "", "", "", "", "", "", ""];
   const update = (position, symbol) => board.splice(position, 1, symbol);
   const checkForWinner = (symbol) => {
     if (
@@ -73,17 +85,20 @@ const gameBoard = (() => {
       (board[3] == symbol && board[4] == symbol && board[5] == symbol) ||
       (board[6] == symbol && board[7] == symbol && board[8] == symbol)
     ) {
+      grid.classList.add("no-pointer-events");
       return true;
     } else if (
       (board[0] == symbol && board[4] == symbol && board[8] == symbol) ||
       (board[2] == symbol && board[4] == symbol && board[6] == symbol)
     ) {
+      grid.classList.add("no-pointer-events");
       return true;
     } else if (
       (board[0] == symbol && board[3] == symbol && board[6] == symbol) ||
       (board[1] == symbol && board[4] == symbol && board[7] == symbol) ||
       (board[2] == symbol && board[5] == symbol && board[8] == symbol)
     ) {
+      grid.classList.add("no-pointer-events");
       return true;
     } else {
       return false;
@@ -94,7 +109,8 @@ const gameBoard = (() => {
       gridCells[i].textContent = board[i];
     }
   };
-  return { update, checkForWinner, display };
+  const resetBoard = () => board = ["", "", "", "", "", "", "", "", ""];
+  return { update, checkForWinner, display, resetBoard };
 })();
 
 const player = (name, symbol) => {
@@ -103,20 +119,20 @@ const player = (name, symbol) => {
   return { getName, getSymbol };
 };
 
-window.addEventListener("load", setInitialState );
+window.addEventListener("load", setInitialState);
 
 function setInitialState(){
   gameBoard.display();
-  addPointerEvents();
+  removePointerEvents();
 }
 
 function findWinner () {
   if (!gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getTurns() == 9){
-    result.textContent = "It's a tie!";
+    result.textContent = "Result: It's a tie!";
   }else if (gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getCurrentPlayer().getSymbol() == "X"){
-    result.textContent ="Result: " + roundDetails.getCurrentPlayer().getName().toUpperCase() + " WINS!";
+    result.textContent ="Result: " + roundDetails.getCurrentPlayer().getName() + " wins!";
   }else if (gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getCurrentPlayer().getSymbol() == "O"){
-    result.textContent ="Result: " + roundDetails.getCurrentPlayer().getName().toUpperCase() + " WINS!";
+    result.textContent ="Result: " + roundDetails.getCurrentPlayer().getName() + " wins!";
   }
 } 
 
@@ -139,7 +155,8 @@ function markCell (e,symbol,position) {
     gameBoard.update(position, symbol);
     gameBoard.display();
   }else{
-    findCurrentPlayer();
+    findCurrentPlayer(); /*If the cell is already marked then it changes the current player so that
+                           when gridCell event listener is triggered again it will swap back to the correct player  */
   }
 }
 
