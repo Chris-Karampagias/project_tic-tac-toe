@@ -1,11 +1,11 @@
 :root {
   font-family: "Dancing Script", sans, cursive;
+  min-height:100vh;
 }
 
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
   font-size: 48px;
   display: flex;
   flex-direction: column;
@@ -13,8 +13,10 @@ body {
   background: linear-gradient(45deg, rgba(0, 0, 0, 0.665), rgba(20, 20, 227, 0.797), rgb(70, 70, 190),rgba(49, 107, 152, 0.7));
 }
 
-button {
+button,
+select {
   outline: none;
+  cursor:pointer;
 }
 
 .no-pointer-events {
@@ -78,11 +80,13 @@ button {
 
 .grid-buttons {
   display: flex;
-  gap: 3rem;
+  justify-content: space-between;
+  gap: 2rem;
 }
 
 .restart,
-.start {
+.start,
+#change-mode {
   font-family: inherit;
   font-size: 2rem;
   border: none;
@@ -92,6 +96,11 @@ button {
   color: rgb(32, 32, 32);
   padding: 0.5rem;
   width: fit-content;
+}
+
+#change-mode{
+  text-align: center;
+  width:50%;
 }
 
 .start-after-refresh{
