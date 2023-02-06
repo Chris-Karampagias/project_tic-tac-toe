@@ -7,7 +7,8 @@ const closeButton = document.querySelector(".close-modal");
 const start = document.querySelector(".start");
 const restart = document.querySelector(".restart");
 const grid = document.querySelector(".grid");
-const result = document.querySelector(".result"); 
+const result = document.querySelector(".result");
+const displayTurn = document.querySelector(".announce-turn"); 
 
 start.addEventListener("click", () => {
   modal.showModal();
@@ -35,6 +36,8 @@ submitButton.addEventListener("click", () => {
   start.classList.add("no-pointer-events");
   start.classList.remove("start-after-refresh");
   addPointerEvents();
+  roundDetails.setCurrentPlayer(currentPlayers.getPlayer1());
+  displayTurn.textContent = "It's "+ roundDetails.getCurrentPlayer().getName()+"'s "+ "turn!";
 });
 
 restart.addEventListener("click",restartGame)
@@ -46,6 +49,8 @@ function restartGame() {
   restart.classList.remove("start-after-refresh");
   grid.classList.remove("no-pointer-events");
   result.textContent = "Result: "
+  roundDetails.setCurrentPlayer(currentPlayers.getPlayer1());
+  displayTurn.textContent = "It's "+ roundDetails.getCurrentPlayer().getName()+"'s "+ "turn!";
 }
 
 const currentPlayers = (() => {
@@ -128,15 +133,21 @@ function findWinner () {
   if (!gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getTurns() == 9){
     restart.classList.add("start-after-refresh");
     grid.classList.add("no-pointer-events");
+    displayTurn.textContent = "";
     result.textContent = "Result: It's a tie!";
+    return true
   }else if (gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getCurrentPlayer().getSymbol() == "X"){
     restart.classList.add("start-after-refresh");
     grid.classList.add("no-pointer-events");
+    displayTurn.textContent = "";
     result.textContent ="Result: " + roundDetails.getCurrentPlayer().getName() + " wins!";
+    return true
   }else if (gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getCurrentPlayer().getSymbol() == "O"){
     restart.classList.add("start-after-refresh");
     grid.classList.add("no-pointer-events");
+    displayTurn.textContent = "";
     result.textContent ="Result: " + roundDetails.getCurrentPlayer().getName() + " wins!";
+    return true;
   }
 } 
 
@@ -154,7 +165,6 @@ function getPosition(e) {
 
 function markCell (e,symbol,position) {
   if (e.target.textContent == ""){
-    e.target.textContent = symbol;
     roundDetails.setTurns();
     gameBoard.update(position, symbol);
     gameBoard.display();
@@ -164,12 +174,31 @@ function markCell (e,symbol,position) {
   }
 }
 
+function announceTurn(){
+  if (roundDetails.getCurrentPlayer()==currentPlayers.getPlayer1()){
+    displayTurn.textContent= "It's "+ currentPlayers.getPlayer2().getName()+"'s "+"turn!";
+  }else{
+    displayTurn.textContent= "It's "+ currentPlayers.getPlayer1().getName()+"'s "+"turn!";
+  }
+}
+
 function playRound(e) {
-  findCurrentPlayer();
-  const position = getPosition(e);
-  const symbol = roundDetails.getCurrentPlayer().getSymbol();
-  markCell(e,symbol,position);
-  findWinner();
+  if(roundDetails.getTurns() == 0){
+    const position = getPosition(e);
+    const symbol = roundDetails.getCurrentPlayer().getSymbol();
+    markCell(e,symbol,position);
+    announceTurn()
+  }else{
+    findCurrentPlayer();
+    const position = getPosition(e);
+    const symbol = roundDetails.getCurrentPlayer().getSymbol();
+    markCell(e,symbol,position);
+    if(findWinner()){
+      return;
+    }
+    announceTurn();
+  }
+  
 }
 
 gridCells.forEach((gridCell) => {
