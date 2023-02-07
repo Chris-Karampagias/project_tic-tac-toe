@@ -6,12 +6,7 @@
 body {
   margin: 0;
   padding: 0;
-<<<<<<< HEAD
-  height: 100%;
-  font-size: 48px;
-=======
   font-size: 32px;
->>>>>>> beta
   display: flex;
   flex-direction: column;
   place-items: center;
@@ -31,7 +26,7 @@ button{
   display: flex;
   flex-direction: column;
   place-items: center;
-  gap: 2rem;
+  gap: 1rem;
   margin: 2rem auto;
   padding: 2rem;
   background-color: rgba(0, 0, 0, 0.267);
@@ -45,8 +40,13 @@ button{
   display: flex;
   flex-direction: column;
   place-items: center;
-  padding: 1rem 6rem;
   gap: 3rem;
+}
+
+.turn-options-wrapper{
+  display: flex;
+  justify-content: space-between;
+  width:100%;
 }
 
 .grid {
@@ -79,6 +79,7 @@ button{
 
 .grid-cell {
   cursor: pointer;
+  font-size: 2rem;
 }
 
 .grid-buttons {
@@ -87,9 +88,18 @@ button{
   gap: 2rem;
 }
 
+.options{
+  display: flex;
+  flex-direction: column;
+  gap:1rem;
+  place-items: center;
+  width:30%;
+  place-self: start;
+}
+
 .restart,
 .start,
-.change-mode {
+.difficulty {
   font-family: inherit;
   font-size: 2rem;
   border: none;
@@ -101,6 +111,10 @@ button{
   width: fit-content;
 }
 
+.difficulty{
+  font-size:1.5rem;
+}
+
 a:link{
   text-decoration: none;
   color: rgb(32, 32, 32);
@@ -110,7 +124,7 @@ a:visited{
   text-decoration: none;
   color: rgb(32, 32, 32);
 }
-.change-mode:hover,
+.difficulty:hover,
 a:hover{
   text-decoration: none;
   color: rgb(32, 32, 32);
@@ -122,21 +136,18 @@ a:visited{
   color: rgb(32, 32, 32);
 }
 
-#change-mode:hover{
-  transform:scale(1.1);
-}
-
 .start-after-refresh{
   box-shadow: 0 0 10px white;
 }
 
 .result{
   font-size:3rem;
-  align-self: start;
+  place-self: start;
 }
 
 .announce-turn{
   font-size: 2rem;
+  justify-self: end;
   align-self: center;
 }
 
