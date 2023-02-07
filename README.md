@@ -1,1 +1,6 @@
-# project_tic-tac-toe
+setInitialState
+roundDetails
+createPlayers
+currentPlayers
+findWinner
+announceTurn

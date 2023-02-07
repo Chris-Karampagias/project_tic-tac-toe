@@ -1,20 +1,26 @@
 :root {
   font-family: "Dancing Script", sans, cursive;
+  min-height:100vh;
 }
 
 body {
   margin: 0;
   padding: 0;
+<<<<<<< HEAD
   height: 100%;
   font-size: 48px;
+=======
+  font-size: 32px;
+>>>>>>> beta
   display: flex;
   flex-direction: column;
   place-items: center;
   background: linear-gradient(45deg, rgba(0, 0, 0, 0.665), rgba(20, 20, 227, 0.797), rgb(70, 70, 190),rgba(49, 107, 152, 0.7));
 }
 
-button {
+button{
   outline: none;
+  cursor:pointer;
 }
 
 .no-pointer-events {
@@ -22,13 +28,12 @@ button {
 }
 
 .main-container {
-  position: relative;
   display: flex;
   flex-direction: column;
   place-items: center;
   gap: 2rem;
-  margin: 5rem auto;
-  padding: 1rem 2rem;
+  margin: 2rem auto;
+  padding: 2rem;
   background-color: rgba(0, 0, 0, 0.267);
   backdrop-filter: blur(10px);
   border-radius: 10px;
@@ -78,11 +83,13 @@ button {
 
 .grid-buttons {
   display: flex;
-  gap: 3rem;
+  justify-content: space-between;
+  gap: 2rem;
 }
 
 .restart,
-.start {
+.start,
+.change-mode {
   font-family: inherit;
   font-size: 2rem;
   border: none;
@@ -94,12 +101,43 @@ button {
   width: fit-content;
 }
 
+a:link{
+  text-decoration: none;
+  color: rgb(32, 32, 32);
+}
+
+a:visited{
+  text-decoration: none;
+  color: rgb(32, 32, 32);
+}
+.change-mode:hover,
+a:hover{
+  text-decoration: none;
+  color: rgb(32, 32, 32);
+  transform: scale(1.1);
+}
+
+a:visited{
+  text-decoration: none;
+  color: rgb(32, 32, 32);
+}
+
+#change-mode:hover{
+  transform:scale(1.1);
+}
+
 .start-after-refresh{
   box-shadow: 0 0 10px white;
 }
 
-.result {
+.result{
+  font-size:3rem;
   align-self: start;
+}
+
+.announce-turn{
+  font-size: 2rem;
+  align-self: center;
 }
 
 .modal {
