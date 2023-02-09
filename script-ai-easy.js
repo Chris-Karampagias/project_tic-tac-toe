@@ -123,15 +123,11 @@ if (displayTurn.textContent == "It's YOUR turn!"){
 }
 
 function markCell (e,symbol,position) {
-if (e.target.textContent == ""){
-    roundDetails.setTurns();
-    gameBoard.update(position, symbol);
-    gameBoard.display();
-}else{
-    findCurrentPlayer(); /*If the cell is already marked then it changes the current player so that
-                            when gridCell event listener is triggered again it will swap back to the correct player  */
+  roundDetails.setTurns();
+  gameBoard.update(position, symbol);
+  gameBoard.display();
 }
-}
+
 
 function markAiChoice () {
     let choice = getAiChoice();
@@ -148,6 +144,9 @@ function markPlayerChoice(e){
 }
 
 function playRound(e) {
+  if (e.target.textContent != ""){
+    return;
+  }
     markPlayerChoice(e)
     grid.classList.add("no-pointer-events");
     if(findWinner()){
