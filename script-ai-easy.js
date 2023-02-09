@@ -4,16 +4,6 @@ const grid = document.querySelector(".grid");
 const result = document.querySelector(".result"); 
 const displayTurn = document.querySelector(".announce-turn"); 
 
-function removePointerEvents() {
-    grid.classList.add("no-pointer-events");
-    restart.classList.add("no-pointer-events");
-}
-
-function addPointerEvents() {
-    grid.classList.remove("no-pointer-events");
-    restart.classList.remove("no-pointer-events");
-}
-
 const player = (name, symbol) => {
     const getName = () => name;
     const getSymbol = () => symbol;
@@ -119,16 +109,6 @@ function getAiChoice(){
     }while (gameBoard.getBoard()[i] != "")
     return i;
 }
-
-function findCurrentPlayer () {
-    if (roundDetails.getCurrentPlayer() == currentPlayers.getPlayer1()){
-      roundDetails.setCurrentPlayer(currentPlayers.getPlayer2())
-      return roundDetails.getCurrentPlayer().getName();
-    }else{
-      roundDetails.setCurrentPlayer(currentPlayers.getPlayer1());
-      return roundDetails.getCurrentPlayer().getName();
-    }
-  }
 
 function getPosition(e) {
 return e.target.dataset.pos;
