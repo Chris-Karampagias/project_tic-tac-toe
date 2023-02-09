@@ -169,11 +169,13 @@ function markPlayerChoice(e){
 
 function playRound(e) {
     markPlayerChoice(e)
+    grid.classList.add("no-pointer-events");
     if(findWinner()){
         return;
     }
     setTimeout(() =>{  /* Add delay to computer's choice for extra realism */
         markAiChoice();
+        grid.classList.remove("no-pointer-events");
         if(findWinner()){
             return;
         }
