@@ -4,29 +4,6 @@ const grid = document.querySelector(".grid");
 const result = document.querySelector(".result"); 
 const displayTurn = document.querySelector(".announce-turn"); 
 
-const player = (name, symbol) => {
-    const getName = () => name;
-    const getSymbol = () => symbol;
-    return { getName, getSymbol };
-  };
-
-const currentPlayers = (() => {
-    let player1;
-    let player2;
-    const setPlayer1 = (name1) => player1 = player(name1, "X");
-    const setPlayer2 = (name2) => player2 = player(name2, "O");
-    const getPlayer1 = () => player1;
-    const getPlayer2 = () => player2;
-    return {setPlayer1, setPlayer2, getPlayer1, getPlayer2};
-  })()
-  
-  function createPlayers() {
-    const player1 = player("You","X");
-    const player2 = player("AI","O");
-    currentPlayers.setPlayer1("You");
-    currentPlayers.setPlayer2("AI");
-  }
-
 const roundDetails = (() => {
     let turns = 0;
     const setTurns = () => {
@@ -161,7 +138,6 @@ function minimax(state,symbol){
 window.addEventListener("load", setInitialState);
 
 function setInitialState(){
-    createPlayers();
     displayTurn.textContent = "It's YOUR turn!";
 }
 
