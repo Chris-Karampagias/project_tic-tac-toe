@@ -1,15 +1,20 @@
 :root {
   font-family: "Dancing Script", sans, cursive;
-  min-height:100vh;
+  height:100vh;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
 }
 
 body {
-  margin: 0;
+  min-height: 100vh;
+  margin:0;
   padding: 0;
   font-size: 32px;
   display: flex;
   flex-direction: column;
-  place-items: center;
+  justify-content:start;
   background: linear-gradient(45deg, rgba(0, 0, 0, 0.665), rgba(20, 20, 227, 0.797), rgb(70, 70, 190),rgba(49, 107, 152, 0.7));
 }
 
@@ -23,12 +28,14 @@ button{
 }
 
 .main-container {
+  min-height:80vh;
+  position:relative;
   display: flex;
   flex-direction: column;
   place-items: center;
   gap: 1rem;
   margin: 2rem auto;
-  padding: 2rem;
+  padding: 2.6rem 2rem;
   background-color: rgba(0, 0, 0, 0.267);
   backdrop-filter: blur(10px);
   border-radius: 10px;
@@ -37,15 +44,12 @@ button{
 }
 
 .grid-container {
-  display: flex;
-  flex-direction: column;
-  place-items: center;
-  gap: 3rem;
+  position: fixed;
+  top:30%;
 }
 
 .turn-options-wrapper{
-  display: flex;
-  justify-content: space-between;
+  position: relative;
   width:100%;
 }
 
@@ -82,18 +86,13 @@ button{
   font-size: 2rem;
 }
 
-.grid-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-}
-
 .options{
   display: flex;
   flex-direction: column;
+  position: fixed;
+  left:1rem;
   gap:1rem;
   place-items: center;
-  width:30%;
   place-self: start;
 }
 
@@ -109,6 +108,18 @@ button{
   color: rgb(32, 32, 32);
   padding: 0.5rem;
   width: fit-content;
+}
+
+.restart{
+  position:fixed;
+  bottom:1rem;
+  left:1rem;
+}
+
+.start{
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
 }
 
 .difficulty{
@@ -147,8 +158,10 @@ a:visited{
 
 .announce-turn{
   font-size: 2rem;
-  justify-self: end;
-  align-self: center;
+  position: fixed;
+  right:3rem;
+  top:3rem;
+  width:30%;
 }
 
 .modal {

@@ -7,7 +7,6 @@ const closeButton = document.querySelector(".close-modal");
 const start = document.querySelector(".start");
 const restart = document.querySelector(".restart");
 const grid = document.querySelector(".grid");
-const result = document.querySelector(".result");
 const displayTurn = document.querySelector(".announce-turn"); 
 
 start.addEventListener("click", () => {
@@ -48,7 +47,6 @@ function restartGame() {
   gameBoard.display();
   restart.classList.remove("start-after-refresh");
   grid.classList.remove("no-pointer-events");
-  result.textContent = "Result: "
   roundDetails.setCurrentPlayer(currentPlayers.getPlayer1());
   displayTurn.textContent = "It's "+ roundDetails.getCurrentPlayer().getName()+"'s "+ "turn!";
 }
@@ -133,20 +131,17 @@ function findWinner () {
   if (!gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getTurns() == 9){
     restart.classList.add("start-after-refresh");
     grid.classList.add("no-pointer-events");
-    displayTurn.textContent = "";
-    result.textContent = "Result: It's a tie!";
+    displayTurn.textContent = "It's a draw!";
     return true
   }else if (gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getCurrentPlayer().getSymbol() == "X"){
     restart.classList.add("start-after-refresh");
     grid.classList.add("no-pointer-events");
-    displayTurn.textContent = "";
-    result.textContent ="Result: " + roundDetails.getCurrentPlayer().getName() + " wins!";
+    displayTurn.textContent = roundDetails.getCurrentPlayer().getName() + " wins!";
     return true
   }else if (gameBoard.checkForWinner(roundDetails.getCurrentPlayer().getSymbol()) && roundDetails.getCurrentPlayer().getSymbol() == "O"){
     restart.classList.add("start-after-refresh");
     grid.classList.add("no-pointer-events");
-    displayTurn.textContent = "";
-    result.textContent ="Result: " + roundDetails.getCurrentPlayer().getName() + " wins!";
+    displayTurn.textContent = roundDetails.getCurrentPlayer().getName() + " wins!";
     return true;
   }
 } 
