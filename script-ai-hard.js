@@ -194,6 +194,18 @@ function playRound(e) {
       announceTurn();
   }
 
-  gridCells.forEach((gridCell) => {
-    gridCell.addEventListener("click", playRound);
-    });
+gridCells.forEach((gridCell) => {
+ gridCell.addEventListener("click", playRound);
+});
+
+function restartGame() {
+    roundDetails.resetTurns();
+    gameBoard.resetBoard();
+    gameBoard.resetDisplay();
+    restart.classList.remove("start-after-refresh");
+    grid.classList.remove("no-pointer-events");
+    result.textContent = "Result: "
+    displayTurn.textContent = "It's YOUR turn!";
+}    
+
+restart.addEventListener("click" , restartGame);
