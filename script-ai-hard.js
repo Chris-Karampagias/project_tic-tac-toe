@@ -52,20 +52,17 @@ const findWinner = (() => {
         if ((!gameBoard.checkForWinner(gameBoard.getBoard(),"X") && !gameBoard.checkForWinner(gameBoard.getBoard(),"O"))  && roundDetails.getTurns() == 9){
             restart.classList.add("start-after-refresh");
             grid.classList.add("no-pointer-events");
-            displayTurn.textContent = "";
-            result.textContent = "Result: It's a tie!";
+            displayTurn.textContent = "It's a draw!";
             return true
         }else if (gameBoard.checkForWinner(gameBoard.getBoard(),"X")){
             restart.classList.add("start-after-refresh");
             grid.classList.add("no-pointer-events");
-            displayTurn.textContent = "";
-            result.textContent ="Result: YOU win!";
+            displayTurn.textContent = "YOU win!";
             return true
         }else if (gameBoard.checkForWinner(gameBoard.getBoard(),"O")){
             restart.classList.add("start-after-refresh");
             grid.classList.add("no-pointer-events");
-            displayTurn.textContent = "";
-            result.textContent ="Result: AI wins!";
+            displayTurn.textContent = "AI wins!";
             return true;
         }
         }
@@ -187,7 +184,7 @@ function playRound(e) {
               return;
           }
           announceTurn();
-      },100);
+      },700);
       if(findWinner.gameWinner()){
           return;
       }
@@ -204,7 +201,6 @@ function restartGame() {
     gameBoard.resetDisplay();
     restart.classList.remove("start-after-refresh");
     grid.classList.remove("no-pointer-events");
-    result.textContent = "Result: "
     displayTurn.textContent = "It's YOUR turn!";
 }    
 

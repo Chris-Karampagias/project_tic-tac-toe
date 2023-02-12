@@ -1,7 +1,6 @@
 const gridCells = Array.from(document.querySelectorAll(".grid-cell"));
 const restart = document.querySelector(".restart");
-const grid = document.querySelector(".grid");
-const result = document.querySelector(".result"); 
+const grid = document.querySelector(".grid"); 
 const displayTurn = document.querySelector(".announce-turn"); 
 
 const player = (name, symbol) => {
@@ -76,20 +75,17 @@ function findWinner(){
     if (!gameBoard.checkForWinner(currentPlayers.getPlayer1().getSymbol()) && roundDetails.getTurns() == 9){
       restart.classList.add("start-after-refresh");
       grid.classList.add("no-pointer-events");
-      displayTurn.textContent = "";
-      result.textContent = "Result: It's a tie!";
+      displayTurn.textContent = "It's a draw!";
       return true
     }else if (gameBoard.checkForWinner(currentPlayers.getPlayer1().getSymbol())){
       restart.classList.add("start-after-refresh");
       grid.classList.add("no-pointer-events");
-      displayTurn.textContent = "";
-      result.textContent ="Result: YOU win!";
+      displayTurn.textContent = "YOU win!";
       return true
     }else if (gameBoard.checkForWinner(currentPlayers.getPlayer2().getSymbol())){
       restart.classList.add("start-after-refresh");
       grid.classList.add("no-pointer-events");
-      displayTurn.textContent = "";
-      result.textContent ="Result: AI wins!";
+      displayTurn.textContent = "AI wins!";
       return true;
     }
   } 
@@ -159,7 +155,7 @@ function playRound(e) {
             return;
         }
         announceTurn();
-    },900);
+    },700);
     if(findWinner()){
         return;
     }
@@ -177,7 +173,6 @@ function restartGame() {
   gameBoard.display();
   restart.classList.remove("start-after-refresh");
   grid.classList.remove("no-pointer-events");
-  result.textContent = "Result: "
   displayTurn.textContent = "It's YOUR turn!";
 }
 
