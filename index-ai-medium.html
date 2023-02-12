@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href = "style.css">
     <title>Chris's Tic Tac Toe</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,15 +12,15 @@
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap"
       rel="stylesheet"
     />
-  </head>
-  <body>
-    <script src="script.js" defer></script>
+</head>
+<body>
+    <script src="script-ai-medium.js" defer></script>
     <div class="main-container">
       <div class="turn-options-wrapper">
         <div class="options">
           <button class="difficulty"><a href="index-ai-easy.html">Solo (Easy)</a></button>
-          <button class="difficulty"><a href="index-ai-medium.html">Solo (Medium)</a></button>
           <button class="difficulty"><a href="index-ai-hard.html">Solo (Hard)</a></button>
+          <button class="difficulty"><a href="index.html">PvP</a></button>
         </div>
         <div class="announce-turn"></div>
       </div>
@@ -36,28 +36,8 @@
           <div class="grid-cell" data-pos="7"></div>
           <div class="grid-cell" data-pos="8"></div>
         </div>
-        <button class="start">Start</button>
         <button class="restart">Restart</button>
       </div>
     </div>
-    <dialog class="modal">
-      <form method="dialog">
-        <div>
-          <label for="player-1">Player 1: </label>
-          <input type="text" id="player-1" name="player1" required />
-        </div>
-        <div>
-          <label for="player-2">Player 2: </label>
-          <input type="text" id="player-2" name="player2" required />
-        </div>
-        <div class="modal-buttons">
-          <button class="submit-button">Submit</button>
-          <button class="close-modal">CLose</button>
-        </div>
-      </form>
-    </dialog>
-  </body>
+</body>
 </html>
-        
-          
-        
